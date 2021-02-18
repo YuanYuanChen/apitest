@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "apitest"
+version = "0.1.0"
+description = ""
+authors = ["YuanYuanChen <yychen2010@163.com>"]
+license = "apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pytest = "^6.2.2"
+requests = "^2.25.1"
+
+[tool.poetry.dev-dependencies]
+coverage = "^5.4"
+coveralls = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
