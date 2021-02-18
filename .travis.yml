@@ -15,5 +15,5 @@ python:
   script:
     -poetry run coverage run --source=apiteseting -m pytest -v
     -poetry run coverage report -m
-#  after_success:
-#    - poetry run coveralls
+  after_success:
+    - poetry run coveralls
