@@ -20,7 +20,7 @@ class ApiHttpbinGet(BaseApi):
 
 
 def test_httpbin_get():
-    ApiHttpbinGet().run().validate("status_code",200)
+    ApiHttpbinGet().run().validate("status_code",200).validate("headers.server","gunicorn/19.9.0")
 
 def test_httpbin_get_withparams():
     ApiHttpbinGet().set_params(abc=123,xyz=456).run().validate("status_code",200)
