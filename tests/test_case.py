@@ -62,12 +62,28 @@ def test_httpbib_extract():
     assert accept_type=="application/json"
 
 
+def test_httpbin_setcookies():
+    api_run = ApiHttpbinGetCookies()\
+        .set_cookie("free_form1","123")\
+        .set_cookie("free_form2", "456")\
+        .run()
+    freeform1=api_run\
+        .extract("json().cookies.free_form1")
+    freeform2 = api_run\
+        .extract("json().cookies.free_form2")
+    assert freeform1 == "123"
+    assert freeform2 == "456"
+
+
+
+
 # 第一个接口的返回作为第二个接口的输入
 def test_httpbin_parameters_extract():
-    user_id="adk129"
-    ApiHttpbinGetCookies().set_params(user_id=user_id)\
+    # user_id="adk129"
+    freeform = ApiHttpbinGetCookies()\
         .run()\
-        .extract("status_code")
+        .extract("json().cookies.freeform")
+    assert freeform=="123"
 
 
 
