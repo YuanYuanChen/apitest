@@ -36,4 +36,39 @@ def test_httpbin_post():
         # .validate("json().url","http://httpbin.org/post")\
         # .validate("json().headers.Accept",'application/json')
 
+# 参数共享
+def test_httpbin_parameters_share():
+    user_id="adk129"
+    ApiHttpbinGet().set_params(user_id=user_id) \
+        .run() \
+        .validate("status_code", 200) \
+        .validate("json().headers.Accept", "application/json")\
+        .validate("json().url","http://httpbin.org/get?user_id=adk129")\
+        .validate("json().args.user_id","adk129")
+
+
+    ApiHttpbinPost().set_json({"user_id": user_id}) \
+        .run() \
+        .validate("status_code", 405)\
+        # .validate("json().url","http://httpbin.org/post?user_id=adk129")\
+        # .validate("json().headers.Accept", "application/json")
+
+
+def test_httpbib_extract():
+    api_run=ApiHttpbinGet().run()
+    status_code=api_run.extract("status_code")
+    assert status_code==200
+    accept_type=api_run.extract("json().headers.Accept")
+    assert accept_type=="application/json"
+
+
+# 第一个接口的返回作为第二个接口的输入
+def test_httpbin_parameters_extract():
+    user_id="adk129"
+    ApiHttpbinGetCookies().set_params(user_id=user_id)\
+        .run()\
+        .extract("status_code")
+
+
+
 
