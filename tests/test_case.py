@@ -79,11 +79,17 @@ def test_httpbin_setcookies():
 
 # 第一个接口的返回作为第二个接口的输入
 def test_httpbin_parameters_extract():
-    # user_id="adk129"
+    #get value
     freeform = ApiHttpbinGetCookies()\
-        .run()\
-        .extract("json().cookies.freeform")
+            .set_cookie("free_form","123")\
+            .run()\
+             .extract("json().cookies.free_form")
     assert freeform=="123"
+
+    #user value as parameter
+    ApiHttpbinGet().set_params(user_id=freeform)\
+        .run().validate("json().args.user_id","123")
+
 
 
 
